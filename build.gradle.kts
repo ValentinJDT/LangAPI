@@ -22,7 +22,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/ValentinJDT/MultiLanguageAPI\n")
+            url = uri("https://maven.pkg.github.com/ValentinJDT/MultiLanguageAPI")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
