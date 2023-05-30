@@ -52,6 +52,10 @@ public enum Lang {
         return this.locals;
     }
 
+    public String getErrorInformation() {
+        return getConfigName() + " (" + String.join(", ", getLocals()) + ")";
+    }
+
     /**
      * Get name to use into {@link #getFromName(String)}
      * @return
