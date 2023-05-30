@@ -4,6 +4,6 @@ import fr.mrcoq.lib.multilanguageapi.Lang;
 
 public class LangFileNotFoundException extends Exception {
     public LangFileNotFoundException(Lang lang) {
-        super("No language file found for " + lang.getConfigName() + " (" + String.join(", ", lang.getLocals()) + ")");
+        super("No language file found for " + lang.getErrorInformation());
     }
 }
