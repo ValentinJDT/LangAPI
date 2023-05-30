@@ -134,7 +134,15 @@ public final class MultiLanguageAPI {
      * @throws LangFileNotFoundException
      */
     public String getString(Lang lang, String path) throws LangFileNotFoundException {
-        return getConfig(lang).getString(path);
+        String value = getConfig(lang).getString(path);
+
+        if(value == null) {
+            String err = "Missing translation value on `" + path + "` in " + lang.getErrorInformation() + ".";
+            plugin.getLogger().severe(err);
+            value = "§4" + err + ". Please contact admin.";
+        }
+
+        return value;
     }
 
     /**
