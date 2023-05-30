@@ -18,24 +18,35 @@ Des langues peuvent être ajoutées, soumettez les moi !
 
 Pour le moment, le projet n'est disponible qu'en utilisant le JAR en tant que dépendance.
 
-### Gradle
+### Gradle Kts
 
-Ajoutez dans le JAR dans les dépendances :
-```groovy
+Ajoutez le repository :
+```kotlin
+repositories {
+    /* Others repositories */
+    maven {
+        name = "jitpack.io"
+        url = "https://jitpack.io"
+    }
+}
+```
+
+Ajoutez dans la dépendance :
+```kotlin
 dependencies {
-    compileOnly "org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT"
-    implementation files("<path>\\MultiLanguageAPI-1.0.jar")
+    /* Others dependencies */
+    implementation("com.github.ValentinJDT:MultiLanguageAPI:[last-version]")
 }
 ```
 
 Pour compiler l'api dans votre plugin, ajoutez (ou modifiez) la task jar :
-```groovy
+```kotlin
 jar {
     from {
         configurations
                 .runtimeClasspath
                 .collect {
-                    if (it.name.equalsIgnoreCase("MultiLanguageAPI-1.0.jar")) {
+                    if (it.name.contains("MultiLanguageAPI")) {
                         zipTree(it)
                     }
                 }
@@ -45,7 +56,7 @@ jar {
 
 ### Maven
 
-Ajoutez ce repository :
+Ajoutez ces repositories :
 ```xml
     <repositories>
         <!-- Other repositories -->
@@ -53,10 +64,27 @@ Ajoutez ce repository :
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 ```
 
-Ajoutez le plugin Maven Assembly :
+Ajoutez la dépendance (Laissez bien le scope sur compile) :
+```xml
+<dependencies>
+    <!-- Other dependencies -->
+    <dependency>
+        <groupId>com.github.ValentinJDT</groupId>
+        <artifactId>MultiLanguageAPI</artifactId>
+        <version>[last-version]</version>
+        <scope>compile</scope>
+    </dependency>
+</dependencies>
+```
+
+Ajoutez le plugin suivant :
 ```xml
 <build>
     <plugins>
@@ -86,10 +114,7 @@ Ajoutez le plugin Maven Assembly :
 </build>
 ```
 
-TODO : Next step
-
-
-Lorsque vous allez build le projet (`mvn package`), un deuxième jar va apparaître. Utilisez le jar nommé `<nom>-dependencies.jar`.
+Lorsque vous allez build le projet (`mvn package`), un deuxième JAR va apparaître. Utilisez le jar nommé `<nom>-jar-with-dependencies`.
 
 
 ## Crédit
