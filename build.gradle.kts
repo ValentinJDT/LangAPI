@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fr.mrcoq.lib"
-version = "1.0"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
@@ -17,6 +17,19 @@ repositories {
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "fr.mrcoq.lib"
+            artifactId = "MultiLanguageAPI"
+            version = "1.0.4"
+
+            from(components["java"])
+        }
+    }
+}
+
 
 java {
     toolchain {
