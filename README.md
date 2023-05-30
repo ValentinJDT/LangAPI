@@ -86,17 +86,7 @@ Ajoutez le plugin Maven Assembly :
 </build>
 ```
 
-Importez le JAR dans vos dépendances :
-```xml
-<dependency>
-    <groupId>com.sample</groupId>
-    <artifactId>sample</artifactId>
-    <version>1.0</version>
-    <scope>compile</scope>
-    <systemPath>path-to-jar/MultiLanguageAPI-1.0.jar</systemPath>
-</dependency>
-```
-
+TODO : Next step
 
 
 Lorsque vous allez build le projet (`mvn package`), un deuxième jar va apparaître. Utilisez le jar nommé `<nom>-dependencies.jar`.
