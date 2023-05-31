@@ -16,8 +16,6 @@ Des langues peuvent être ajoutées, soumettez les moi !
 
 ## Installation
 
-Pour le moment, le projet n'est disponible qu'en utilisant le JAR en tant que dépendance.
-
 ### Gradle Kts
 
 Ajoutez le repository :
