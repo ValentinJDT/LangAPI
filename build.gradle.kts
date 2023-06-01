@@ -3,8 +3,11 @@ plugins {
     id("maven-publish")
 }
 
-group = "fr.mrcoq.lib"
-version = "1.0.4"
+val projectVersion = "1.1.0"
+val projectGroup = "fr.mrcoq.lib"
+
+group = projectGroup
+version = projectVersion
 
 repositories {
     mavenCentral()
@@ -21,9 +24,9 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "fr.mrcoq.lib"
-            artifactId = "MultiLanguageAPI"
-            version = "1.0.4"
+            groupId = projectGroup
+            artifactId = rootProject.name
+            version = projectVersion
 
             from(components["java"])
         }
