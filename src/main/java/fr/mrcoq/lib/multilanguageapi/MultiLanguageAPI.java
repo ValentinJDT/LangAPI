@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class MultiLanguageAPI {
+
+    private static Map<Lang, FileConfiguration> cache = new HashMap<>();
 
     private static File globalLangFolder = new File("./plugins/MultiLanguageAPI/");
     private static File globalLangFile = new File(globalLangFolder, "config.yml");
@@ -101,7 +101,25 @@ public final class MultiLanguageAPI {
         return getString(lang, path);
     }
 
+    /**
+     * Clear configurations in cache.
+     */
+    public void clearCache() {
+        cache.clear();
+    }
+
+    /**
+     * Get config of {@link fr.mrcoq.lib.multilanguageapi.Lang}.
+     * @param lang
+     * @return
+     * @throws LangFileNotFoundException
+     */
     public FileConfiguration getConfig(Lang lang) throws LangFileNotFoundException {
+
+        if(cache.containsKey(lang)) {
+            return cache.get(lang);
+        }
+
         Optional<File> optionalFile = Arrays.stream(langFolder.listFiles()).filter((file) -> lang.getLocals().stream().anyMatch(local -> file.getName().startsWith(local))).findFirst();
 
         FileConfiguration config = null;
@@ -122,6 +140,8 @@ public final class MultiLanguageAPI {
         if(config == null) {
             throw new LangFileNotFoundException(lang);
         }
+
+        cache.put(lang, config);
 
         return config;
     }
@@ -199,6 +219,7 @@ public final class MultiLanguageAPI {
         }
 
         FileConfiguration config = YamlConfiguration.loadConfiguration(globalLangFile);
+
         String defaultLang = config.getString("lang.default");
 
         return Lang.getFromLocal(defaultLang);
