@@ -19,7 +19,7 @@ public enum Lang {
         this.locals = locals;
 
         if(locals.isEmpty()) {
-            throw new NullPointerException("Locals can't be empty");
+            throw new NullPointerException("Locals can't be null or empty.");
         }
     }
 
