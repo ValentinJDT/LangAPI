@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public final class MultiLanguageAPI {
 
-    private static Map<Lang, FileConfiguration> cache = new HashMap<>();
+    private Map<Lang, FileConfiguration> cache = new HashMap<>();
 
     private static File globalLangFolder = new File("./plugins/MultiLanguageAPI/");
     private static File globalLangFile = new File(globalLangFolder, "config.yml");
@@ -69,7 +69,7 @@ public final class MultiLanguageAPI {
     }
 
     /**
-     * Create LangAPI directory in plugin datadir
+     * Create LangAPI directory in plugin data dir.
      */
     private void init() {
         if(!langFolder.exists())
@@ -89,29 +89,8 @@ public final class MultiLanguageAPI {
     }
 
     /**
-     * Get string from player and path.
-     * @param player
-     * @param path
-     * @return
-     * @throws LangFileNotFoundException
-     */
-    public String getString(Player player, String path) throws LangFileNotFoundException {
-        Lang lang = getPlayerLang(player);
-
-        return getString(lang, path);
-    }
-
-    /**
-     * Clear configurations in cache.
-     */
-    public void clearCache() {
-        cache.clear();
-    }
-
-    /**
      * Get config of {@link fr.mrcoq.lib.multilanguageapi.Lang}.
      * @param lang
-     * @return
      * @throws LangFileNotFoundException
      */
     public FileConfiguration getConfig(Lang lang) throws LangFileNotFoundException {
@@ -147,10 +126,29 @@ public final class MultiLanguageAPI {
     }
 
     /**
+     * Clear configurations in cache.
+     */
+    public void clearCache() {
+        cache.clear();
+    }
+
+    /**
+     * Get string from player and path
+     * @param path Key of the translation
+     * @return Translated message
+     * @throws LangFileNotFoundException
+     */
+    public String getString(Player player, String path) throws LangFileNotFoundException {
+        Lang lang = getPlayerLang(player);
+
+        return getString(lang, path);
+    }
+
+    /**
      * Get string from lang and path.
-     * @param lang
-     * @param path
-     * @return
+     * @param lang Lang
+     * @param path Key of the translation
+     * @return Translated message
      * @throws LangFileNotFoundException
      */
     public String getString(Lang lang, String path) throws LangFileNotFoundException {
@@ -167,8 +165,7 @@ public final class MultiLanguageAPI {
 
     /**
      * Fix local value latency when {@link org.bukkit.event.player.PlayerJoinEvent} is called.
-     * @param player
-     * @param path
+     * @param path Key of the translation
      * @param consumer
      */
     public void getStringOnJoin(Player player, String path, Consumer<String> consumer) {
@@ -184,7 +181,7 @@ public final class MultiLanguageAPI {
     /**
      * Fix local value latency when {@link org.bukkit.event.player.PlayerJoinEvent} is called.
      * @param lang
-     * @param path
+     * @param path Key of the translation.
      * @param consumer
      */
     public void getStringOnJoin(Lang lang, String path, Consumer<String> consumer) {
@@ -200,7 +197,7 @@ public final class MultiLanguageAPI {
     /**
      * Get the player language.
      * @param player
-     * @return
+     * @return Client language of player
      */
     public static Lang getPlayerLang(Player player) {
         String local = player.getLocale().split("_")[0];
@@ -211,7 +208,7 @@ public final class MultiLanguageAPI {
     /**
      * Obviously, get the default language.
      * By default, is english.
-     * @return
+     * @return Default language defined in config.yml or take english
      */
     public static Lang getDefaultLang() {
         if(!globalLangFile.exists()) {
